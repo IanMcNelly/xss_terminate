@@ -37,8 +37,12 @@ module XssTerminate
     end
 
     module InstanceMethods
-      def write_attribute_with_type_cast(attr_name, value, should_type_cast)
-        super(attr_name, xss_terminate_sanitize(attr_name, value), should_type_cast)
+      def write_attribute_without_type_cast(attr_name, value)
+        super(attr_name, xss_terminate_sanitize(attr_name, value))
+      end
+
+      def _write_attribute(attribute_name, value)
+        super(attribute_name, xss_terminate_sanitize(attribute_name, value))
       end
 
       # Sanitized value for using the options for attr_name
